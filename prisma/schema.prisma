@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id          String            @id @default(uuid())
+  name        String            @unique
+  description String?
+  records     FinancialRecord[]
+
+  @@map("category")
+}
+
+model FinancialRecord {
+  id          String          @id @default(uuid())
+  amount      Decimal         @db.Decimal(20, 2)
+  type        TransactionType
+  date        DateTime        @default(now())
+  description String?
+  
+  // Relationships
+  userId      String
+  user        User            @relation(fields: [userId], references: [id])
+  
+  categoryId  String
+  category    Category        @relation(fields: [categoryId], references: [id])
+  
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("financial_record")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  action     String   // e.g., "CREATE_RECORD", "UPDATE_USER"
+  resourceId String?  
+  details    Json?    
+  timestamp  DateTime @default(now())
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("audit_log")
+}
