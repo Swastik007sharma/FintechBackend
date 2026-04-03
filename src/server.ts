@@ -3,6 +3,7 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
 import financeRoutes from "./routes/finance.routes";
 import userRoutes from "./routes/user.routes";
+import dashboardRoutes from "./routes/dashboard.routes";
 import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
@@ -11,6 +12,7 @@ app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 app.use("/api/finance", financeRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.use(errorHandler);
 

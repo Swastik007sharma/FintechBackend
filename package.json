@@ -15,7 +15,7 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "prisma:studio": "prisma studio",
     "postinstall": "prisma generate",
-    "format": "prettier --write ./src/*",
+    "format": "prettier --write ./src/**/*.ts",
     "check": "tsc --noEmit"
   },
   "prisma": {
