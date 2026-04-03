@@ -1,0 +1,880 @@
+openapi: 3.0.3
+info:
+  title: FinTech API
+  description: |
+    REST API for the FinTech backend. Handles authentication, user management,
+    financial records, categories, and dashboard analytics.
+
+    ## Authentication
+    After signing in, pass the session token as a `Bearer` token in the
+    `Authorization` header, or rely on the `better-auth.session_token` session
+    cookie set automatically by the server.
+
+    ## Roles
+    | Role      | Permissions |
+    |-----------|-------------|
+    | `ADMIN`   | Full access — manage users, all records, categories |
+    | `ANALYST` | Read users and their own financial records |
+    | `VIEWER`  | Read-only dashboard scoped to their own data |
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+tags:
+  - name: Auth
+    description: Sign-up, sign-in, sign-out and session inspection
+  - name: Users
+    description: User listing and admin management of roles and statuses
+  - name: Finance
+    description: Financial records and spending categories
+  - name: Dashboard
+    description: Aggregated analytics and summary data
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Session token returned by sign-in / sign-up
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token
+      description: Session cookie set automatically by the server on sign-in
+
+  schemas:
+    # ── Enums ──────────────────────────────────────────────────────
+    Role:
+      type: string
+      enum: [VIEWER, ANALYST, ADMIN]
+      example: ANALYST
+
+    Status:
+      type: string
+      enum: [ACTIVE, INACTIVE]
+      example: ACTIVE
+
+    RecordType:
+      type: string
+      enum: [INCOME, EXPENSE]
+      example: INCOME
+
+    # ── Core models ──────────────────────────────────────────────────
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: T9GwpEZUydlthCQqu5gcJVsWh3YLAcSz
+        name:
+          type: string
+          example: Alice Analyst
+        email:
+          type: string
+          format: email
+          example: alice@fintech.dev
+        role:
+          $ref: "#/components/schemas/Role"
+        status:
+          $ref: "#/components/schemas/Status"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2026-04-03T12:24:32.087Z"
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 96412086-222d-4f9e-bce5-9ee4ac373096
+        name:
+          type: string
+          example: Salary
+        description:
+          type: string
+          nullable: true
+          example: Monthly salary and wages
+
+    FinancialRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 98398eae-9564-4642-b6df-01b6b1b8542c
+        amount:
+          type: number
+          format: float
+          example: 5000
+        type:
+          $ref: "#/components/schemas/RecordType"
+        date:
+          type: string
+          format: date-time
+          example: "2026-03-01T00:00:00.000Z"
+        description:
+          type: string
+          nullable: true
+          example: March salary
+        userId:
+          type: string
+          example: T9GwpEZUydlthCQqu5gcJVsWh3YLAcSz
+        categoryId:
+          type: string
+          format: uuid
+          example: 4e0d0e60-91ae-4332-ac07-8b03491d70eb
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        category:
+          $ref: "#/components/schemas/Category"
+        user:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+              format: email
+
+    # ── Auth models ──────────────────────────────────────────────────
+    AuthUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        emailVerified:
+          type: boolean
+        image:
+          type: string
+          nullable: true
+        role:
+          $ref: "#/components/schemas/Role"
+        status:
+          $ref: "#/components/schemas/Status"
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Session token for use in the Authorization header
+          example: k1qfpUHTWrjU7R8dy6JjJJCzpyF2T9ZN
+        user:
+          $ref: "#/components/schemas/AuthUser"
+
+    # ── Dashboard models ─────────────────────────────────────────────
+    DashboardSummary:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            totalIncome:
+              type: number
+              example: 15000
+            totalExpenses:
+              type: number
+              example: 8500
+            netBalance:
+              type: number
+              example: 6500
+        categoryTotals:
+          type: array
+          items:
+            type: object
+            properties:
+              categoryName:
+                type: string
+                example: Salary
+              categoryId:
+                type: string
+                format: uuid
+              type:
+                $ref: "#/components/schemas/RecordType"
+              totalAmount:
+                type: number
+                example: 15000
+        recentActivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/FinancialRecord"
+
+    # ── Shared utility schemas ───────────────────────────────────────
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 67
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 10
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Unauthorized No active session
+
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+
+  # ── Reusable responses ───────────────────────────────────────────
+  responses:
+    Unauthorized:
+      description: No active session or invalid token
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    Forbidden:
+      description: Authenticated but lacks the required role
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    UnprocessableEntity:
+      description: Request body failed schema validation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ValidationError"
+
+# Apply bearerAuth or cookieAuth globally; public endpoints override with security: []
+security:
+  - bearerAuth: []
+  - cookieAuth: []
+
+paths:
+  # ── Auth ──────────────────────────────────────────────────────────
+  /api/auth/sign-up/email:
+    post:
+      tags: [Auth]
+      summary: Sign up
+      description: |
+        Register a new user account with email and password. Returns a session
+        token and sets a better-auth.session_token cookie. Only VIEWER and
+        ANALYST roles can be self-registered.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, name, role]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: alice@fintech.dev
+                password:
+                  type: string
+                  minLength: 8
+                  example: Alice@1234
+                name:
+                  type: string
+                  example: Alice Analyst
+                role:
+                  $ref: "#/components/schemas/Role"
+      responses:
+        "200":
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  /api/auth/sign-in/email:
+    post:
+      tags: [Auth]
+      summary: Sign in
+      description: Authenticate with email and password. Returns a session token and sets a session cookie.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: alice@fintech.dev
+                password:
+                  type: string
+                  example: Alice@1234
+      responses:
+        "200":
+          description: Signed in successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid email or password
+                  code:
+                    type: string
+                    example: INVALID_EMAIL_OR_PASSWORD
+
+  /api/auth/get-session:
+    get:
+      tags: [Auth]
+      summary: Get session
+      description: Returns the current session and user info. Requires a valid session token or cookie.
+      responses:
+        "200":
+          description: Active session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      userId:
+                        type: string
+                      expiresAt:
+                        type: string
+                        format: date-time
+                  user:
+                    $ref: "#/components/schemas/AuthUser"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/auth/sign-out:
+    post:
+      tags: [Auth]
+      summary: Sign out
+      description: Invalidates the current session token and clears the session cookie.
+      responses:
+        "200":
+          description: Signed out successfully
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  # ── Users ─────────────────────────────────────────────────────────
+  /api/users:
+    get:
+      tags: [Users]
+      summary: List all users
+      description: Returns all registered users. Requires ADMIN or ANALYST role.
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /api/users/{id}/role:
+    patch:
+      tags: [Users]
+      summary: Change user role
+      description: |
+        Update a user's role. An admin cannot change their own role.
+        Requires ADMIN role.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user to update
+          schema:
+            type: string
+            example: T9GwpEZUydlthCQqu5gcJVsWh3YLAcSz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [role]
+              properties:
+                role:
+                  $ref: "#/components/schemas/Role"
+      responses:
+        "200":
+          description: Role updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      role:
+                        $ref: "#/components/schemas/Role"
+        "400":
+          description: Cannot change your own role
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  /api/users/{id}/status:
+    patch:
+      tags: [Users]
+      summary: Change user status
+      description: |
+        Activate or deactivate a user account. An admin cannot change their own
+        status. Requires ADMIN role.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user to update
+          schema:
+            type: string
+            example: T9GwpEZUydlthCQqu5gcJVsWh3YLAcSz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  $ref: "#/components/schemas/Status"
+      responses:
+        "200":
+          description: Status updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      status:
+                        $ref: "#/components/schemas/Status"
+        "400":
+          description: Cannot change your own status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── Finance: Categories ───────────────────────────────────────────
+  /api/finance/categories:
+    get:
+      tags: [Finance]
+      summary: List categories
+      description: Returns all financial categories. Requires authentication.
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Category"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+    post:
+      tags: [Finance]
+      summary: Create category
+      description: Create a new financial category. Requires ADMIN role.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  example: Salary
+                description:
+                  type: string
+                  example: Monthly salary and wages
+      responses:
+        "201":
+          description: Category created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: "#/components/schemas/Category"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── Finance: Records ──────────────────────────────────────────────
+  /api/finance/records:
+    get:
+      tags: [Finance]
+      summary: List financial records
+      description: |
+        Returns paginated financial records.
+        - ADMIN sees records for all users.
+        - ANALYST sees only their own records.
+
+        Requires ADMIN or ANALYST role.
+      parameters:
+        - name: type
+          in: query
+          description: Filter by record type
+          schema:
+            $ref: "#/components/schemas/RecordType"
+        - name: categoryId
+          in: query
+          description: Filter by category UUID
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: Include records on or after this date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+            example: "2026-01-01T00:00:00.000Z"
+        - name: endDate
+          in: query
+          description: Include records on or before this date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+            example: "2026-03-31T23:59:59.999Z"
+        - name: page
+          in: query
+          description: Page number (1-based)
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: limit
+          in: query
+          description: Records per page
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+      responses:
+        "200":
+          description: Paginated list of financial records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FinancialRecord"
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+    post:
+      tags: [Finance]
+      summary: Create financial record
+      description: Create a new financial record. Requires ADMIN role.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount, type, categoryId]
+              properties:
+                amount:
+                  type: number
+                  format: float
+                  exclusiveMinimum: true
+                  example: 5000
+                type:
+                  $ref: "#/components/schemas/RecordType"
+                date:
+                  type: string
+                  format: date-time
+                  description: Defaults to current timestamp if omitted
+                  example: "2026-03-01T00:00:00.000Z"
+                description:
+                  type: string
+                  example: March salary
+                categoryId:
+                  type: string
+                  format: uuid
+                  example: 4e0d0e60-91ae-4332-ac07-8b03491d70eb
+      responses:
+        "201":
+          description: Record created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: "#/components/schemas/FinancialRecord"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  /api/finance/records/{id}:
+    patch:
+      tags: [Finance]
+      summary: Update financial record
+      description: |
+        Update an existing financial record.
+        - ADMIN can update any record.
+        - Other users can only update their own records.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID of the financial record
+          schema:
+            type: string
+            format: uuid
+            example: 98398eae-9564-4642-b6df-01b6b1b8542c
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                  exclusiveMinimum: true
+                  example: 6000
+                type:
+                  $ref: "#/components/schemas/RecordType"
+                date:
+                  type: string
+                  format: date-time
+                description:
+                  type: string
+                categoryId:
+                  type: string
+                  format: uuid
+      responses:
+        "200":
+          description: Record updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: "#/components/schemas/FinancialRecord"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+    delete:
+      tags: [Finance]
+      summary: Delete financial record
+      description: |
+        Soft-deletes a financial record (sets deletedAt).
+        - ADMIN can delete any record.
+        - Other users can only delete their own records.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID of the financial record
+          schema:
+            type: string
+            format: uuid
+            example: 98398eae-9564-4642-b6df-01b6b1b8542c
+      responses:
+        "200":
+          description: Record soft-deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record deleted successfully
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ── Dashboard ──────────────────────────────────────────────────────
+  /api/dashboard/summary:
+    get:
+      tags: [Dashboard]
+      summary: Dashboard summary
+      description: |
+        Returns aggregated financial analytics.
+        - ADMIN sees data across all users.
+        - ANALYST and VIEWER see only their own data.
+      responses:
+        "200":
+          description: Dashboard analytics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: "#/components/schemas/DashboardSummary"
+        "401":
+          $ref: "#/components/responses/Unauthorized"

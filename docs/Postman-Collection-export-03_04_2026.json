@@ -1,0 +1,752 @@
+{
+  "info": {
+    "_postman_id": "b51b0eac-5126-4477-9d22-62e78f157d6c",
+    "name": "FinTech",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "id": "f651e8b7-ebbf-4337-b8f5-3c7c323abfaa",
+      "name": "Admin",
+      "item": [
+        {
+          "id": "5a424b86-16a6-400f-bd0c-05f9bf243970",
+          "name": "List All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"analyst@gmail.com\", \r\n    \"password\": \"12345678\", \r\n    \"name\": \"analyst\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/users",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "users"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [
+            {
+              "id": "zWZdjCcrh13u5jfyYFjY",
+              "name": "List All Users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "http://localhost:3000",
+                    "type": "text",
+                    "disabled": false,
+                    "description": ""
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"analyst@gmail.com\", \r\n    \"password\": \"12345678\", \r\n    \"name\": \"analyst\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}api/users",
+                  "host": [
+                    "{{URL}}api"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "protocol": "https"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "content-length",
+                  "value": "1152",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"480-K54AfOngg0/fWWXmixFv10BjA2I\"",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 03 Apr 2026 16:56:16 GMT",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "connection",
+                  "value": "close",
+                  "type": "text",
+                  "disabled": true
+                }
+              ],
+              "cookie": [],
+              "body": "{\"status\":\"success\",\"data\":[{\"id\":\"4ZxiCvUNUtWjw6o8psytxOoUYSqJbigp\",\"name\":\"admin\",\"email\":\"admin@gmail.com\",\"role\":\"ADMIN\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-04-03T09:22:19.085Z\"},{\"id\":\"PmlKC58ASovtXNVKQSQfYkkzBw5WM45A\",\"name\":\"analyst\",\"email\":\"analyst@gmail.com\",\"role\":\"ANALYST\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-04-03T11:06:00.073Z\"},{\"id\":\"GulCNz2YOPvIy7PvLyWNXDOK63YZeZUJ\",\"name\":\"viewer\",\"email\":\"viewer@gmail.com\",\"role\":\"VIEWER\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-04-03T11:07:27.696Z\"},{\"id\":\"5gC3Hi0A9eBm0tMi756yGoluoavaPX50\",\"name\":\"demo\",\"email\":\"demo@gmail.com\",\"role\":\"ADMIN\",\"status\":\"INACTIVE\",\"createdAt\":\"2026-04-03T11:18:04.798Z\"},{\"id\":\"2a351aa5-1e14-4bad-958e-0a314efc6698\",\"name\":\"Admin User\",\"email\":\"admin@fintech.dev\",\"role\":\"ADMIN\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-04-03T12:21:38.653Z\"},{\"id\":\"T9GwpEZUydlthCQqu5gcJVsWh3YLAcSz\",\"name\":\"Alice Analyst\",\"email\":\"alice@fintech.dev\",\"role\":\"ANALYST\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-04-03T12:24:32.087Z\"},{\"id\":\"cnNziwW4l7SQbwGGnALDEccbXFfZjpVs\",\"name\":\"Bob Viewer\",\"email\":\"bob@fintech.dev\",\"role\":\"VIEWER\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-04-03T12:24:33.020Z\"}]}",
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": []
+        },
+        {
+          "id": "edb0b043-d8e3-4895-8d3c-72b1fffb6294",
+          "name": "Change Role",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"role\": \"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/users/:id/role",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "users",
+                ":id",
+                "role"
+              ],
+              "protocol": "https",
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "(Required) id"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "064cac8c-42ba-44fe-aba3-018d0d001e5d",
+          "name": "Change Status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"INACTIVE\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/users/:id/status",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "users",
+                ":id",
+                "status"
+              ],
+              "protocol": "https",
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "(Required) id"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "variable": []
+    },
+    {
+      "id": "9c8e9b37-c329-45c1-82f2-9288f2d349e5",
+      "name": "Auth",
+      "item": [
+        {
+          "id": "c13c0b3e-55fb-40a1-9584-aecfaf1fc976",
+          "name": "Sign-up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"demo@gmail.com\", \r\n    \"password\": \"12345678\", \r\n    \"name\": \"demo\",\r\n    \"role\": \"VIEWER\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/auth/sign-up/email",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "auth",
+                "sign-up",
+                "email"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "cccc7d81-ff9c-4852-abf5-dcfef8694c92",
+          "name": "Sign-in",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@gmail.com\", \n    \"password\": \"12345678\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/auth/sign-in/email",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "auth",
+                "sign-in",
+                "email"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "8f2caf0d-0dc5-4b45-b33d-28eddca97a11",
+          "name": "Get Session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/auth/get-session",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "auth",
+                "get-session"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "5c5199ae-cae7-4456-ab84-bb19f8eed0e0",
+          "name": "Sign-out",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}api/auth/sign-out",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "auth",
+                "sign-out"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "variable": []
+    },
+    {
+      "id": "6f22f4e0-a5b0-4c59-bb82-5e1af0bf76b7",
+      "name": "Finance",
+      "item": [
+        {
+          "id": "218090fd-ff5f-4437-819c-2d60d4a0cd1d",
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/finance/categories",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "finance",
+                "categories"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [
+            {
+              "id": "Vz1cNoi5SU9HLQZGQhIG",
+              "name": "Get Category",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}api/finance/categories",
+                  "host": [
+                    "{{URL}}api"
+                  ],
+                  "path": [
+                    "finance",
+                    "categories"
+                  ],
+                  "protocol": "https"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "content-length",
+                  "value": "1237",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"4d5-9NSHHg+JlO1cP9rY1e97bRCL1/g\"",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 03 Apr 2026 16:56:44 GMT",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "connection",
+                  "value": "close",
+                  "type": "text",
+                  "disabled": true
+                }
+              ],
+              "cookie": [],
+              "body": "{\"status\":\"success\",\"data\":[{\"id\":\"7d39b58d-9742-465b-b8d5-455bcfa64bcb\",\"name\":\"string\",\"description\":\"string\"},{\"id\":\"f6750903-7442-450e-8d5a-ba3e6fc29a63\",\"name\":\"Freelance\",\"description\":\"Contract and freelance income\"},{\"id\":\"f69d4282-afbb-4414-9cc6-d2a817ebe43a\",\"name\":\"Utilities\",\"description\":\"Electricity, water, internet\"},{\"id\":\"d70059a6-bd78-4a0a-bd73-dac486045d5e\",\"name\":\"Groceries\",\"description\":\"Food and household items\"},{\"id\":\"4e0d0e60-91ae-4332-ac07-8b03491d70eb\",\"name\":\"Salary\",\"description\":\"Monthly salary and wages\"},{\"id\":\"93125169-d7c8-4c32-a422-da9491a751a7\",\"name\":\"Entertainment\",\"description\":\"Movies, games, subscriptions\"},{\"id\":\"c3109235-c419-4fc8-bfa3-bf46bdebf509\",\"name\":\"Transport\",\"description\":\"Fuel, public transit, ride-sharing\"},{\"id\":\"96412086-222d-4f9e-bce5-9ee4ac373096\",\"name\":\"Investments\",\"description\":\"Dividends, interest, and capital gains\"},{\"id\":\"e0baff2d-b57a-4e53-b7bd-887de34e180a\",\"name\":\"Healthcare\",\"description\":\"Doctor visits, medicine, insurance\"},{\"id\":\"e94bae93-7897-4cc5-886b-31b565df7c74\",\"name\":\"Dining\",\"description\":\"Restaurants and takeout\"},{\"id\":\"125b0070-fb05-4641-89a1-cce33796c850\",\"name\":\"Shopping\",\"description\":\"Clothing, electronics, and general retail\"}]}",
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": []
+        },
+        {
+          "id": "775c4412-50a3-4780-ab33-a15fae38f4cd",
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"string\",\n    \"description\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/finance/categories",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "finance",
+                "categories"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "65d942f4-ca99-46fe-87df-f4167f56ff46",
+          "name": "Get Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}api/finance/records",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "finance",
+                "records"
+              ],
+              "protocol": "https",
+              "query": [
+                {
+                  "key": "categoryId",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Filter by category"
+                },
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Filter records from this date (ISO 8601)"
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Filter records up to this date (ISO 8601)"
+                },
+                {
+                  "key": "page",
+                  "value": "2",
+                  "disabled": true,
+                  "description": "Page number (default: 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "disabled": true,
+                  "description": "Number of records per page (default: 10)"
+                },
+                {
+                  "key": "type",
+                  "value": "string",
+                  "disabled": true,
+                  "description": "Filter by record type"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "d5ee5f45-7661-49c5-a670-4b5b43d90a14",
+          "name": "Create Record",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount\": 0,\n    \"type\": \"string\",\n    \"date\": \"2026-04-03T00:00:00.000Z\",\n    \"description\": \"string\",\n    \"categoryId\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/finance/records",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "finance",
+                "records"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "3b2abecc-c250-4787-88bd-d1f2cc80c7a7",
+          "name": "Update Record",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount\": 0,\n    \"type\": \"string\",\n    \"date\": \"2026-04-03T00:00:00.000Z\",\n    \"categoryId\": \"string\",\n    \"description\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/finance/records/:id",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "finance",
+                "records",
+                ":id"
+              ],
+              "protocol": "https",
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "(Required) id"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "9890f49e-7602-4c10-979f-1ef92b541c55",
+          "name": "Delete Record",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text",
+                "disabled": false,
+                "description": ""
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}api/finance/records/:id",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "finance",
+                "records",
+                ":id"
+              ],
+              "protocol": "https",
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "(Required) id"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "variable": []
+    },
+    {
+      "id": "a2d857f9-b96a-426e-8ed5-d1f31875b429",
+      "name": "Summary",
+      "item": [
+        {
+          "id": "ea33a996-1091-46ab-ad11-25ee8c8ec4b3",
+          "name": "summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/dashboard/summary",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "dashboard",
+                "summary"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "variable": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "ac2ca0b2-4682-464b-a69a-77607fb95663",
+      "key": "URL",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
