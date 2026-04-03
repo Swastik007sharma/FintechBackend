@@ -1,0 +1,522 @@
+{
+  "categories": [
+    {
+      "name": "Salary",
+      "description": "Monthly salary and wages"
+    },
+    {
+      "name": "Freelance",
+      "description": "Contract and freelance income"
+    },
+    {
+      "name": "Investments",
+      "description": "Dividends, interest, and capital gains"
+    },
+    {
+      "name": "Groceries",
+      "description": "Food and household items"
+    },
+    {
+      "name": "Utilities",
+      "description": "Electricity, water, internet"
+    },
+    {
+      "name": "Entertainment",
+      "description": "Movies, games, subscriptions"
+    },
+    {
+      "name": "Transport",
+      "description": "Fuel, public transit, ride-sharing"
+    },
+    {
+      "name": "Healthcare",
+      "description": "Doctor visits, medicine, insurance"
+    },
+    {
+      "name": "Dining",
+      "description": "Restaurants and takeout"
+    },
+    {
+      "name": "Shopping",
+      "description": "Clothing, electronics, and general retail"
+    }
+  ],
+  "users": [
+    {
+      "name": "Admin User",
+      "email": "admin@fintech.dev",
+      "password": "Admin@1234",
+      "role": "ADMIN"
+    },
+    {
+      "name": "Alice Analyst",
+      "email": "alice@fintech.dev",
+      "password": "Alice@1234",
+      "role": "ANALYST"
+    },
+    {
+      "name": "Bob Viewer",
+      "email": "bob@fintech.dev",
+      "password": "Bob@1234",
+      "role": "VIEWER"
+    }
+  ],
+  "records": [
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Salary",
+      "amount": 5000,
+      "type": "INCOME",
+      "date": "2026-01-01",
+      "description": "January salary"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Salary",
+      "amount": 5000,
+      "type": "INCOME",
+      "date": "2026-02-01",
+      "description": "February salary"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Salary",
+      "amount": 5000,
+      "type": "INCOME",
+      "date": "2026-03-01",
+      "description": "March salary"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Freelance",
+      "amount": 1200,
+      "type": "INCOME",
+      "date": "2026-01-18",
+      "description": "Website redesign project"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Freelance",
+      "amount": 850,
+      "type": "INCOME",
+      "date": "2026-02-22",
+      "description": "API integration contract"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Freelance",
+      "amount": 1500,
+      "type": "INCOME",
+      "date": "2026-03-15",
+      "description": "Mobile app consulting"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Investments",
+      "amount": 320,
+      "type": "INCOME",
+      "date": "2026-01-31",
+      "description": "Stock dividends Q4 payout"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Investments",
+      "amount": 410,
+      "type": "INCOME",
+      "date": "2026-03-31",
+      "description": "ETF dividends Q1 payout"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Groceries",
+      "amount": 320,
+      "type": "EXPENSE",
+      "date": "2026-01-05",
+      "description": "Weekly grocery run"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Groceries",
+      "amount": 290,
+      "type": "EXPENSE",
+      "date": "2026-02-03",
+      "description": "Monthly grocery run"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Groceries",
+      "amount": 350,
+      "type": "EXPENSE",
+      "date": "2026-03-05",
+      "description": "Monthly grocery run"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Utilities",
+      "amount": 115,
+      "type": "EXPENSE",
+      "date": "2026-01-10",
+      "description": "Electricity bill"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Utilities",
+      "amount": 130,
+      "type": "EXPENSE",
+      "date": "2026-02-10",
+      "description": "Electricity & water bill"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Utilities",
+      "amount": 120,
+      "type": "EXPENSE",
+      "date": "2026-03-10",
+      "description": "Electricity bill"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Dining",
+      "amount": 95,
+      "type": "EXPENSE",
+      "date": "2026-01-20",
+      "description": "Team dinner"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Dining",
+      "amount": 60,
+      "type": "EXPENSE",
+      "date": "2026-02-14",
+      "description": "Valentine's dinner"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Shopping",
+      "amount": 250,
+      "type": "EXPENSE",
+      "date": "2026-01-25",
+      "description": "Winter clothing"
+    },
+    {
+      "userEmail": "admin@fintech.dev",
+      "category": "Healthcare",
+      "amount": 80,
+      "type": "EXPENSE",
+      "date": "2026-02-18",
+      "description": "Doctor visit & prescription"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Salary",
+      "amount": 4500,
+      "type": "INCOME",
+      "date": "2026-01-01",
+      "description": "January salary"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Salary",
+      "amount": 4500,
+      "type": "INCOME",
+      "date": "2026-02-01",
+      "description": "February salary"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Salary",
+      "amount": 4500,
+      "type": "INCOME",
+      "date": "2026-03-01",
+      "description": "March salary"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Freelance",
+      "amount": 600,
+      "type": "INCOME",
+      "date": "2026-02-10",
+      "description": "Data analysis report"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Investments",
+      "amount": 180,
+      "type": "INCOME",
+      "date": "2026-03-31",
+      "description": "Mutual fund returns"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Entertainment",
+      "amount": 25,
+      "type": "EXPENSE",
+      "date": "2026-01-05",
+      "description": "Netflix subscription"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Entertainment",
+      "amount": 200,
+      "type": "EXPENSE",
+      "date": "2026-01-20",
+      "description": "Concert tickets"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Entertainment",
+      "amount": 25,
+      "type": "EXPENSE",
+      "date": "2026-02-05",
+      "description": "Netflix subscription"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Entertainment",
+      "amount": 200,
+      "type": "EXPENSE",
+      "date": "2026-03-08",
+      "description": "Netflix & Spotify subscriptions"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Transport",
+      "amount": 90,
+      "type": "EXPENSE",
+      "date": "2026-01-12",
+      "description": "Monthly metro pass"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Transport",
+      "amount": 90,
+      "type": "EXPENSE",
+      "date": "2026-02-12",
+      "description": "Monthly metro pass"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Transport",
+      "amount": 150,
+      "type": "EXPENSE",
+      "date": "2026-03-12",
+      "description": "Uber rides"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Groceries",
+      "amount": 210,
+      "type": "EXPENSE",
+      "date": "2026-01-08",
+      "description": "Grocery shopping"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Groceries",
+      "amount": 190,
+      "type": "EXPENSE",
+      "date": "2026-02-06",
+      "description": "Grocery shopping"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Groceries",
+      "amount": 230,
+      "type": "EXPENSE",
+      "date": "2026-03-06",
+      "description": "Grocery shopping"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Dining",
+      "amount": 75,
+      "type": "EXPENSE",
+      "date": "2026-01-15",
+      "description": "Dinner with friends"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Dining",
+      "amount": 50,
+      "type": "EXPENSE",
+      "date": "2026-02-28",
+      "description": "Lunch out"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Healthcare",
+      "amount": 120,
+      "type": "EXPENSE",
+      "date": "2026-01-22",
+      "description": "Annual health check-up"
+    },
+    {
+      "userEmail": "alice@fintech.dev",
+      "category": "Shopping",
+      "amount": 340,
+      "type": "EXPENSE",
+      "date": "2026-02-15",
+      "description": "Laptop accessories"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Salary",
+      "amount": 3000,
+      "type": "INCOME",
+      "date": "2026-01-01",
+      "description": "January salary"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Salary",
+      "amount": 3000,
+      "type": "INCOME",
+      "date": "2026-02-01",
+      "description": "February salary"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Salary",
+      "amount": 3000,
+      "type": "INCOME",
+      "date": "2026-03-01",
+      "description": "March salary"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Groceries",
+      "amount": 80,
+      "type": "EXPENSE",
+      "date": "2026-01-07",
+      "description": "Weekly groceries"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Groceries",
+      "amount": 95,
+      "type": "EXPENSE",
+      "date": "2026-01-21",
+      "description": "Weekly groceries"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Groceries",
+      "amount": 75,
+      "type": "EXPENSE",
+      "date": "2026-02-04",
+      "description": "Weekly groceries"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Groceries",
+      "amount": 80,
+      "type": "EXPENSE",
+      "date": "2026-03-07",
+      "description": "Weekly groceries"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Transport",
+      "amount": 60,
+      "type": "EXPENSE",
+      "date": "2026-01-14",
+      "description": "Bus pass"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Transport",
+      "amount": 60,
+      "type": "EXPENSE",
+      "date": "2026-02-14",
+      "description": "Bus pass"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Transport",
+      "amount": 60,
+      "type": "EXPENSE",
+      "date": "2026-03-14",
+      "description": "Bus pass"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Utilities",
+      "amount": 70,
+      "type": "EXPENSE",
+      "date": "2026-01-10",
+      "description": "Internet bill"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Utilities",
+      "amount": 70,
+      "type": "EXPENSE",
+      "date": "2026-02-10",
+      "description": "Internet bill"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Utilities",
+      "amount": 70,
+      "type": "EXPENSE",
+      "date": "2026-03-10",
+      "description": "Internet bill"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Entertainment",
+      "amount": 15,
+      "type": "EXPENSE",
+      "date": "2026-01-05",
+      "description": "Spotify subscription"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Entertainment",
+      "amount": 15,
+      "type": "EXPENSE",
+      "date": "2026-02-05",
+      "description": "Spotify subscription"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Entertainment",
+      "amount": 15,
+      "type": "EXPENSE",
+      "date": "2026-03-05",
+      "description": "Spotify subscription"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Dining",
+      "amount": 35,
+      "type": "EXPENSE",
+      "date": "2026-01-25",
+      "description": "Pizza night"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Dining",
+      "amount": 40,
+      "type": "EXPENSE",
+      "date": "2026-02-20",
+      "description": "Lunch with colleague"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Healthcare",
+      "amount": 45,
+      "type": "EXPENSE",
+      "date": "2026-02-25",
+      "description": "Pharmacy"
+    },
+    {
+      "userEmail": "bob@fintech.dev",
+      "category": "Shopping",
+      "amount": 120,
+      "type": "EXPENSE",
+      "date": "2026-03-20",
+      "description": "New shoes"
+    }
+  ]
+}
