@@ -47,7 +47,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@prisma/*": ["generated/prisma/*"]
+      "@db/*": ["generated/prisma"]
     },
     "module": "ESNext",
     "moduleResolution": "bundler",
