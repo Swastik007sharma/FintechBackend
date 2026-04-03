@@ -13,7 +13,7 @@ export const auth = betterAuth({
     additionalFields: {
       role: { type: "string" },
       status: { type: "string" },
-      deletedAt: { type: "date" }
-    }
-  }
+      deletedAt: { type: "date" },
+    },
+  },
 });
