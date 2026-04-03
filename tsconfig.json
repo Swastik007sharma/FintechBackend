@@ -45,6 +45,10 @@
 
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@prisma/*": ["generated/prisma/*"]
+    },
     "module": "ESNext",
     "moduleResolution": "bundler",
     "target": "ES2023",
