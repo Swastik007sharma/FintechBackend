@@ -8,4 +8,11 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  user: {
+    additionalFields: {
+      role: { type: "string" },
+      status: { type: "string" },
+      deletedAt: { type: "date" }
+    }
+  }
 });
