@@ -7,7 +7,7 @@ import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
 app.use(express.json());
-app.all('/api/auth/{*any}', toNodeHandler(auth));
+app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 app.use("/api/finance", financeRoutes);
 app.use("/api/users", userRoutes);
