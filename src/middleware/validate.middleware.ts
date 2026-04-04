@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { AnyZodObject, ZodError } from "zod";
+import { ZodType, ZodError } from "zod";
 
-export const validateRequest = (schema: AnyZodObject) => {
+export const validateRequest = (schema: ZodType) => {
   return async (
     req: Request,
     res: Response,
@@ -19,7 +19,7 @@ export const validateRequest = (schema: AnyZodObject) => {
         res.status(400).json({
           status: "error",
           message: "Validation Error",
-          errors: error.errors,
+          errors: error.issues,
         });
         return;
       }
