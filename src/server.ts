@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
 import fs from "fs";
 import path from "path";
 import yaml from "yaml";
@@ -20,29 +21,54 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // 2. Core Middleware
+const allowedOrigins = (process.env.CORS_ORIGINS ?? "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS: origin '${origin}' not allowed`));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+  }),
+);
 app.use(express.json());
 
 // 3. Swagger API Documentation (Vercel-Safe Configuration via CDN)
-const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 const JS_URLS = [
   "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-bundle.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-standalone-preset.js"
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-standalone-preset.js",
 ];
 
 try {
   const yamlPath = path.join(__dirname, "../docs/FinTech.yaml");
-  
+
   if (fs.existsSync(yamlPath)) {
-    const file = fs.readFileSync(yamlPath, 'utf8');
+    const file = fs.readFileSync(yamlPath, "utf8");
     const swaggerDocument = yaml.parse(file);
 
-    app.use('/api-docs', swaggerUi.serve);
-    app.get('/api-docs', swaggerUi.setup(swaggerDocument, {
-      customCssUrl: CSS_URL,
-      customJs: JS_URLS
-    }));
+    app.use("/api-docs", swaggerUi.serve);
+    app.get(
+      "/api-docs",
+      swaggerUi.setup(swaggerDocument, {
+        customCssUrl: CSS_URL,
+        customJs: JS_URLS,
+      }),
+    );
   } else {
-    console.warn(`⚠️ Swagger file not found at ${yamlPath}. Check your build script.`);
+    console.warn(
+      `⚠️ Swagger file not found at ${yamlPath}. Check your build script.`,
+    );
   }
 } catch (error) {
   console.error("❌ Swagger Initialization Error:", error);
@@ -69,7 +95,9 @@ if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`🚀 Server is running locally on port ${PORT}`);
-    console.log(`📚 API Documentation available at http://localhost:${PORT}/api-docs`);
+    console.log(
+      `📚 API Documentation available at http://localhost:${PORT}/api-docs`,
+    );
   });
 }
 

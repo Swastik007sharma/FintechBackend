@@ -21,8 +21,8 @@ info:
 servers:
   - url: "http://localhost:3000"
     description: Local development server
-  - url: "https://fintech-backend-two-omega.vercel.app"
-    description: production server
+  - url: /
+    description: Current server
 
 tags:
   - name: Auth
